@@ -1,31 +1,28 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Redirecting to Perfect Fixer...</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script>
-    const appScheme = 'perfectfixer://';
-    const playStore = 'https://play.google.com/store/apps/details?id=co.perfectfixer';
-    const appStore = 'https://apps.apple.com/pk/app/perfect-fixer/id6742149035';
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Redirecting...</title>
+    <script>
+      window.onload = function () {
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
-    function redirectUser() {
-      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        const androidURL = "https://play.google.com/store/apps/details?id=co.perfectfixer&pcampaignid";
+        const iosURL = "https://apps.apple.com/pk/app/perfect-fixer/id6742149035";
+        const fallbackURL = "https://perfectfixer.github.io/app-link/";
 
-      if (/android/i.test(userAgent)) {
-        window.location = appScheme;
-        setTimeout(() => { window.location = playStore; }, 1500);
-      } else if (/iPhone|iPad|iPod/.test(userAgent)) {
-        window.location = appScheme;
-        setTimeout(() => { window.location = appStore; }, 1500);
-      } else {
-        window.location = 'https://yourwebsite.com';
-      }
-    }
-
-    window.onload = redirectUser;
-  </script>
-</head>
-<body>
-  <p>Redirecting to Perfect Fixer...</p>
-</body>
+        if (/android/i.test(userAgent)) {
+          window.location.href = androidURL;
+        } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+          window.location.href = iosURL;
+        } else {
+          // Optional: Show some fallback or informative page for desktop
+          document.body.innerHTML = "<h2>Please open this link on your phone to download the app.</h2>";
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <p>Redirecting you to the app store...</p>
+  </body>
 </html>

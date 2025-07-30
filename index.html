@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Redirecting to Perfect Fixer...</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    const appScheme = 'perfectfixer://';
+    const playStore = 'https://play.google.com/store/apps/details?id=co.perfectfixer';
+    const appStore = 'https://apps.apple.com/pk/app/perfect-fixer/id6742149035';
+
+    function redirectUser() {
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+      if (/android/i.test(userAgent)) {
+        window.location = appScheme;
+        setTimeout(() => { window.location = playStore; }, 1500);
+      } else if (/iPhone|iPad|iPod/.test(userAgent)) {
+        window.location = appScheme;
+        setTimeout(() => { window.location = appStore; }, 1500);
+      } else {
+        window.location = 'https://yourwebsite.com';
+      }
+    }
+
+    window.onload = redirectUser;
+  </script>
+</head>
+<body>
+  <p>Redirecting to Perfect Fixer...</p>
+</body>
+</html>

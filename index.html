@@ -1,32 +1,27 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Perfect Fixer</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script>
-    function openApp() {
-      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-      const isAndroid = /android/i.test(userAgent);
-      const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Redirecting...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      window.onload = function () {
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
-      const androidAppLink = "perfectfixer://";
-      const iosAppLink = "perfectfixer://";
-      const androidStoreLink = "https://play.google.com/store/apps/details?id=co.perfectfixer";
-      const iosStoreLink = "https://apps.apple.com/pk/app/perfect-fixer/id6742149035";
+        const androidURL = "https://play.google.com/store/apps/details?id=co.perfectfixer&pcampaignid";
+        const iosURL = "https://apps.apple.com/pk/app/perfect-fixer/id6742149035";
 
-      let now = Date.now();
-      let timeout = setTimeout(() => {
-        if (Date.now() - now < 1500) {
-          window.location = isIOS ? iosStoreLink : androidStoreLink;
+        if (/android/i.test(userAgent)) {
+          window.location.replace(androidURL);
+        } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+          window.location.replace(iosURL);
+        } else {
+          document.body.innerHTML = "<h2>Open this link on your phone to download the app.</h2>";
         }
-      }, 1000);
-
-      window.location = isIOS ? iosAppLink : androidAppLink;
-    }
-  </script>
-</head>
-<body onload="openApp()">
-  <p>Redirecting you to Perfect Fixer App...</p>
-</body>
+      };
+    </script>
+  </head>
+  <body>
+    <p>Redirecting you to the app store...</p>
+  </body>
 </html>

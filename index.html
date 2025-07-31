@@ -1,44 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Redirecting...</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script>
-      window.onload = function () {
-        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+<html>
+<head>
+  <title>Perfect Fixer</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    function openApp() {
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      const isAndroid = /android/i.test(userAgent);
+      const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
 
-        const androidPackage = "co.perfectfixer";
-        const androidIntent = `intent://#Intent;package=${androidPackage};scheme=co.perfectfixer;end`;
-        const androidStore = "https://play.google.com/store/apps/details?id=co.perfectfixer&pcampaignid";
+      const androidAppLink = "perfectfixer://";
+      const iosAppLink = "perfectfixer://";
+      const androidStoreLink = "https://play.google.com/store/apps/details?id=co.perfectfixer";
+      const iosStoreLink = "https://apps.apple.com/pk/app/perfect-fixer/id6742149035";
 
-        const iosScheme = "perfectfixer://"; // This must be registered in your iOS app
-        const iosStore = "https://apps.apple.com/pk/app/perfect-fixer/id6742149035";
-
-        if (/android/i.test(userAgent)) {
-          // Try to open the app via intent
-          window.location = androidIntent;
-
-          // Fallback to Play Store after 2 seconds if not installed
-          setTimeout(() => {
-            window.location = androidStore;
-          }, 2000);
-        } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-          // Try to open the app via custom scheme
-          window.location = iosScheme;
-
-          // Fallback to App Store after 2 seconds
-          setTimeout(() => {
-            window.location = iosStore;
-          }, 2000);
-        } else {
-          // Desktop fallback
-          document.body.innerHTML = "<h2>Open this link on your phone to launch or download the app.</h2>";
+      let now = Date.now();
+      let timeout = setTimeout(() => {
+        if (Date.now() - now < 1500) {
+          window.location = isIOS ? iosStoreLink : androidStoreLink;
         }
-      };
-    </script>
-  </head>
-  <body>
-    <p>Redirecting you to the app or app store...</p>
-  </body>
+      }, 1000);
+
+      window.location = isIOS ? iosAppLink : androidAppLink;
+    }
+  </script>
+</head>
+<body onload="openApp()">
+  <p>Redirecting you to Perfect Fixer App...</p>
+</body>
 </html>
